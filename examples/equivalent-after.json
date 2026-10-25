@@ -1,0 +1,4 @@
+{
+  "manifest_version": 3,
+  "host_permissions": ["*://*.example.test/different-path"]
+}
