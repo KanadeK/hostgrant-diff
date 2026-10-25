@@ -343,7 +343,8 @@ class ValidationTests(unittest.TestCase):
             "https://example.test:bad/",
             "file://server/path",
         ]:
-            self.assertFalse(matches_url(all_hosts, url))
+            with self.subTest(url=url):
+                self.assertFalse(matches_url(all_hosts, url))
 
     def test_maximum_pattern_lists(self):
         old = manifest([f"https://h{i}.example.test/*" for i in range(256)])

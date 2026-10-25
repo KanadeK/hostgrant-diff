@@ -282,7 +282,9 @@ def matches_url(grants, url):
         if not parsed.hostname:
             return False
         host = parsed.hostname.lower()
-        if ":" in host:
+        # Older Python 3.10 urlsplit accepts non-IPv6 text in brackets.
+        # Validate the bracketed form explicitly instead of depending on its version.
+        if parsed.netloc.startswith("[") or ":" in host:
             host = f"[{ipaddress.IPv6Address(host).compressed}]"
         port = parsed.port if parsed.port is not None else (443 if parsed.scheme == "https" else 80)
         return any(
